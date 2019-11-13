@@ -1,0 +1,9 @@
+graph G{
+node_0x55cb01c2c0f0 [shape=record, label=" { 0x55cb01c2c0f0 | Val: Kto, ti? | { left: 0x55cb01c2c110 | right: 0x55cb01c2c150 } } "];
+node_0x55cb01c2c110 [shape=record, label=" { 0x55cb01c2c110 | Val: mojet ja? | { left: 0 | right: 0x55cb01c2c130 } } "];
+node_0x55cb01c2c130 [shape=record, label=" { 0x55cb01c2c130 | Val: net, ti | { left: 0 | right: 0 } } "];
+node_0x55cb01c2c150 [shape=record, label=" { 0x55cb01c2c150 | Val: da, ja | { left: 0 | right: 0 } } "];
+node_0x55cb01c2c0f0-- node_0x55cb01c2c110;
+node_0x55cb01c2c0f0-- node_0x55cb01c2c150;
+node_0x55cb01c2c110-- node_0x55cb01c2c130;
+}
