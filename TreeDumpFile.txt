@@ -1,9 +1,23 @@
 graph G{
-node_0x55cb01c2c0f0 [shape=record, label=" { 0x55cb01c2c0f0 | Val: Kto, ti? | { left: 0x55cb01c2c110 | right: 0x55cb01c2c150 } } "];
-node_0x55cb01c2c110 [shape=record, label=" { 0x55cb01c2c110 | Val: mojet ja? | { left: 0 | right: 0x55cb01c2c130 } } "];
-node_0x55cb01c2c130 [shape=record, label=" { 0x55cb01c2c130 | Val: net, ti | { left: 0 | right: 0 } } "];
-node_0x55cb01c2c150 [shape=record, label=" { 0x55cb01c2c150 | Val: da, ja | { left: 0 | right: 0 } } "];
-node_0x55cb01c2c0f0-- node_0x55cb01c2c110;
-node_0x55cb01c2c0f0-- node_0x55cb01c2c150;
-node_0x55cb01c2c110-- node_0x55cb01c2c130;
+node_0x55a4b3e5ac00 [shape=record, label=" { 0x55a4b3e5ac00 | Val: Устроился на работу? | { left: 0x55a4b3e5ac20 | right: 0x55a4b3e5ad00 } } "];
+node_0x55a4b3e5ac20 [shape=record, label=" { 0x55a4b3e5ac20 | Val: пидор? | { left: 0x55a4b3e5ac40 | right: 0x55a4b3e5ace0 } } "];
+node_0x55a4b3e5ac40 [shape=record, label=" { 0x55a4b3e5ac40 | Val: Ты? | { left: 0x55a4b3e5ac60 | right: 0x55a4b3e5acc0 } } "];
+node_0x55a4b3e5ac60 [shape=record, label=" { 0x55a4b3e5ac60 | Val: сзади? | { left: 0x55a4b3e5ac80 | right: 0x55a4b3e5aca0 } } "];
+node_0x55a4b3e5ac80 [shape=record, label=" { 0x55a4b3e5ac80 | Val: йуй | { left: 0 | right: 0 } } "];
+node_0x55a4b3e5aca0 [shape=record, label=" { 0x55a4b3e5aca0 | Val: жепа | { left: 0 | right: 0 } } "];
+node_0x55a4b3e5acc0 [shape=record, label=" { 0x55a4b3e5acc0 | Val: это ты | { left: 0 | right: 0 } } "];
+node_0x55a4b3e5ace0 [shape=record, label=" { 0x55a4b3e5ace0 | Val: Макс | { left: 0 | right: 0 } } "];
+node_0x55a4b3e5ad00 [shape=record, label=" { 0x55a4b3e5ad00 | Val: Получил зарплату? | { left: 0x55a4b3e5ad20 | right: 0x55a4b3e5ad40 } } "];
+node_0x55a4b3e5ad20 [shape=record, label=" { 0x55a4b3e5ad20 | Val: Пупа | { left: 0 | right: 0 } } "];
+node_0x55a4b3e5ad40 [shape=record, label=" { 0x55a4b3e5ad40 | Val: Лупа | { left: 0 | right: 0 } } "];
+node_0x55a4b3e5ac00-- node_0x55a4b3e5ac20;
+node_0x55a4b3e5ac00-- node_0x55a4b3e5ad00;
+node_0x55a4b3e5ac20-- node_0x55a4b3e5ac40;
+node_0x55a4b3e5ac20-- node_0x55a4b3e5ace0;
+node_0x55a4b3e5ac40-- node_0x55a4b3e5ac60;
+node_0x55a4b3e5ac40-- node_0x55a4b3e5acc0;
+node_0x55a4b3e5ac60-- node_0x55a4b3e5ac80;
+node_0x55a4b3e5ac60-- node_0x55a4b3e5aca0;
+node_0x55a4b3e5ad00-- node_0x55a4b3e5ad20;
+node_0x55a4b3e5ad00-- node_0x55a4b3e5ad40;
 }

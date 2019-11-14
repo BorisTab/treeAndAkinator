@@ -205,6 +205,10 @@ public:
         if (subtree->rightChild) findElem(subtree->rightChild);
     }
 
+    void changeVal(Node <elemType> *node, elemType val) {
+        node->value = val;
+    }
+
     void dump() {
         std::ofstream  dumpFile (dumpFilePath);
         if (!dumpFile) {
