@@ -22,9 +22,19 @@ void newAnswer(Tree < const char *> *akinator, Node <const char *> *node);
 
 void saveNewAnswer(Tree < const char *> *akinator, Node <const char *> *node, char *newQuestion, char *newAnswer);
 
-void checkNewAnswer(char *newAnswer, char *newQuestion);
+bool checkNewAnswer(Tree < const char *> *akinator, char *newAnswer, char *newQuestion);
 
-int akinator3000();
+void showTree(Tree < const char *> *akinator, Node <const char *> *node, int level = 0);
+
+int akinator3000(Tree <const char *> *akinator);
+
+bool newAnswerDuplicateChecker(Tree < const char *> *akinator, Node <const char *> *node, char *newAnswer);
+
+int printAnswers(Node <const char *> *node, int count = 1);
+
+void compareTwoAnswers(Tree < const char *> *akinator);
+
+int getNodeByAnswerN(Node <const char *> *node, Node <const char *> *outNode, int number, int count = 1);
 
 int main() {
     printf("                                                                                                                            \n"
@@ -41,30 +51,47 @@ int main() {
     printAndSay("Давай поиграем?");
     printf("\"да\" или \"нет\"\n");
 
+    Tree <const char *> akinator ('L', akinatorPath);
+
     char answer[10] = "";
     getAnswer(answer);
     while (isYes(answer)) {
-        akinator3000();
+        akinator3000(&akinator);
 
         printAndSay("Хочешь сыграть еще?");
         getAnswer(answer);
     }
 
+    if (isNo(answer)) {
+        printAndSay("Выбере, что ты хочешь");
+        printf("1 Поиграть\n"
+               "2 Посмотреть дерево\n"
+               "3 Сравнить два элемента\n"
+               "4 Выйти\n");
+
+        scanf("%s", answer);
+        switch (*answer) {
+            case '1': akinator3000(&akinator);
+                break;
+            case '2': showTree(&akinator, akinator.getRoot());
+                break;
+            case '3': printAndSay("Тогда я пошел");
+                break;
+            default: printAndSay("Не нажимаешь цифорки, тогда я пошел");
+                break;
+        }
+    }
+
     printAndSay("Пока");
+    akinator.~Tree();
     return 0;
 }
 
-int akinator3000() {
-    printAndSay("Загадывай");
+int akinator3000(Tree <const char *> *akinator) {
+    printAndSay("Загадывай вкусняшку");
 
-    Tree <const char *> akinator ('L', akinatorPath);
-    akinator.dump();
-
-    Node <const char *> *currentNode = akinator.getRoot();
-    ask(&akinator, currentNode);
-
-    akinator.dump();
-    akinator.~Tree();
+    Node <const char *> *currentNode = akinator->getRoot();
+    ask(akinator, currentNode);
 }
 
 void printAndSay(const char *text) {
@@ -136,8 +163,9 @@ void newAnswer(Tree < const char *> *akinator, Node <const char *> *node) {
         char newAnswer[MaxTextLen] = "";
         char newQuestion[MaxTextLen] = "";
 
-        checkNewAnswer(newAnswer, newQuestion);
-        saveNewAnswer(akinator, node, newQuestion, newAnswer);
+        if (!checkNewAnswer(akinator, newAnswer, newQuestion)) {
+            saveNewAnswer(akinator, node, newQuestion, newAnswer);
+        }
 
         akinator->saveTo(akinatorPath);
     } else if(isNo(answer)) {
@@ -151,14 +179,17 @@ void saveNewAnswer(Tree < const char *> *akinator, Node <const char *> *node, ch
     akinator->changeVal(node, newQuestion);
 }
 
-void checkNewAnswer(char *newAnswer, char *newQuestion) {
+bool checkNewAnswer(Tree < const char *> *akinator, char *newAnswer, char *newQuestion) {
     printAndSay("Что ты загадывал?");
-    scanf("%s", newAnswer);
+    printAndSay("Поставь пожалуйста ТОЧКУ в конце");
+    std::cin.getline(newAnswer, MaxTextLen, '.');
+    scanf("%*c");
 
     printAndSay("Чем отличается от моего ответа?");
-    printAndSay("Не пиши, пожалуйста, фразы включающие частицу НЕ");
+    printAndSay("Не пиши, пожалуйста, фразы включающие частицу НЕ и поставь пожалуйста ТОЧКУ в конце");
 
-    scanf("%s", newQuestion);
+    std::cin.getline(newQuestion, MaxTextLen, '.');
+    scanf("%*c");
     sprintf(newQuestion, "%s?", newQuestion);
 
     char answer[10] = "";
@@ -169,8 +200,44 @@ void checkNewAnswer(char *newAnswer, char *newQuestion) {
 
         getAnswer(answer);
         if (isYes(answer)) {
+            if (newAnswerDuplicateChecker(akinator, akinator->getRoot(), newAnswer)) {
+                printAndSay("Извини, но такой ответ уже есть");
+                return true;
+            }
+
             printAndSay("Спасибо за пополнение моих знаний");
+            return false;
         }
     }
+}
 
+void showTree(Tree < const char *> *akinator, Node <const char *> *node, int level) {
+    for (int i = 0; i < level; i++) {
+        printf("\t");
+    }
+    printf("%s\n", akinator->getVal(node));
+    level++;
+    if(node->leftChild) {
+        showTree(akinator, node->leftChild, level);
+    }
+
+    if (node->rightChild) {
+        showTree(akinator, node->rightChild, level);
+    }
+}
+
+bool newAnswerDuplicateChecker(Tree < const char *> *akinator, Node <const char *> *node, char *newAnswer) {
+    bool checker = false;
+    if (!strcmp(newAnswer, node->value)) {
+        return true;
+    }
+
+    if(node->leftChild) {
+        checker = newAnswerDuplicateChecker(akinator, node->leftChild, newAnswer);
+    }
+
+    if (node->rightChild) {
+        checker = newAnswerDuplicateChecker(akinator, node->rightChild, newAnswer);
+    }
+    return checker;
 }
